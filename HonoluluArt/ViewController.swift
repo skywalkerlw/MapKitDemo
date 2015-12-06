@@ -48,31 +48,31 @@ class ViewController: UIViewController {
         var data : NSData
         do {
             data = try NSData(contentsOfFile: fileName!, options: NSDataReadingOptions(rawValue: 0))
+            
+            
+            // 2
+            do {
+                let jsonObject: AnyObject! = try NSJSONSerialization.JSONObjectWithData(data,
+                    options: NSJSONReadingOptions(rawValue: 0))
+                
+                // 3
+                if let jsonObject = jsonObject as? [String: AnyObject],
+                    // 4
+                    let jsonData = JSONValue.fromObject(jsonObject)?["data"]?.array {
+                        for artworkJSON in jsonData {
+                            if let artworkJSON = artworkJSON.array,
+                                // 5
+                                artwork = Artwork.fromJSON(artworkJSON) {
+                                    artworks.append(artwork)
+                            }
+                        }
+                }
+            } catch {
+                print("json error")
+            }
         } catch {
             // report error
             print("read data error")
-        }
-        
-
-        // 2
-        do {
-            let jsonObject: AnyObject! = try NSJSONSerialization.JSONObjectWithData(data,
-                    options: NSJSONReadingOptions(rawValue: 0))
-            
-            // 3
-            if let jsonObject = jsonObject as? [String: AnyObject],
-                // 4
-                let jsonData = JSONValue.fromObject(jsonObject)?["data"]?.array {
-                    for artworkJSON in jsonData {
-                        if let artworkJSON = artworkJSON.array,
-                            // 5
-                            artwork = Artwork.fromJSON(artworkJSON) {
-                                artworks.append(artwork)
-                        }
-                    }
-            }
-        } catch {
-            print("json error")
         }
     }
 }
