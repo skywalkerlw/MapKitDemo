@@ -14,6 +14,8 @@
 		8A0A6ABF1C14E09300C24D47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A6ABD1C14E09300C24D47 /* LaunchScreen.storyboard */; };
 		8A0A6ACA1C14E09300C24D47 /* HonoluluArtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AC91C14E09300C24D47 /* HonoluluArtTests.swift */; };
 		8A0A6AD51C14E09300C24D47 /* HonoluluArtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AD41C14E09300C24D47 /* HonoluluArtUITests.swift */; };
+		8A0A6AE41C14E91200C24D47 /* PublicArt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE31C14E91200C24D47 /* PublicArt.json */; };
+		8A0A6AE61C14EBBB00C24D47 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		8A0A6AD01C14E09300C24D47 /* HonoluluArtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HonoluluArtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A0A6AD41C14E09300C24D47 /* HonoluluArtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HonoluluArtUITests.swift; sourceTree = "<group>"; };
 		8A0A6AD61C14E09300C24D47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A0A6AE31C14E91200C24D47 /* PublicArt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PublicArt.json; sourceTree = "<group>"; };
+		8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +101,14 @@
 		8A0A6AB31C14E09300C24D47 /* HonoluluArt */ = {
 			isa = PBXGroup;
 			children = (
+				8A0A6AE21C14E8FB00C24D47 /* Supporting Files */,
 				8A0A6AB41C14E09300C24D47 /* AppDelegate.swift */,
 				8A0A6AB61C14E09300C24D47 /* ViewController.swift */,
 				8A0A6AB81C14E09300C24D47 /* Main.storyboard */,
 				8A0A6ABB1C14E09300C24D47 /* Assets.xcassets */,
 				8A0A6ABD1C14E09300C24D47 /* LaunchScreen.storyboard */,
 				8A0A6AC01C14E09300C24D47 /* Info.plist */,
+				8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */,
 			);
 			path = HonoluluArt;
 			sourceTree = "<group>";
@@ -123,6 +129,14 @@
 				8A0A6AD61C14E09300C24D47 /* Info.plist */,
 			);
 			path = HonoluluArtUITests;
+			sourceTree = "<group>";
+		};
+		8A0A6AE21C14E8FB00C24D47 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8A0A6AE31C14E91200C24D47 /* PublicArt.json */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A0A6AE41C14E91200C24D47 /* PublicArt.json in Resources */,
 				8A0A6ABF1C14E09300C24D47 /* LaunchScreen.storyboard in Resources */,
 				8A0A6ABC1C14E09300C24D47 /* Assets.xcassets in Resources */,
 				8A0A6ABA1C14E09300C24D47 /* Main.storyboard in Resources */,
@@ -257,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A0A6AB71C14E09300C24D47 /* ViewController.swift in Sources */,
+				8A0A6AE61C14EBBB00C24D47 /* Artwork.swift in Sources */,
 				8A0A6AB51C14E09300C24D47 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
