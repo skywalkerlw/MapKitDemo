@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 class Artwork: NSObject, MKAnnotation {
-    let title: String
+    let title: String?
     let locationName: String
     let discipline: String
     let coordinate: CLLocationCoordinate2D
@@ -23,7 +23,7 @@ class Artwork: NSObject, MKAnnotation {
         super.init()
     }
 
-    var subtitle: String {
+    var subtitle: String? {
         return locationName
     }
 }
