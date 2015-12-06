@@ -17,6 +17,7 @@
 		8A0A6AE41C14E91200C24D47 /* PublicArt.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE31C14E91200C24D47 /* PublicArt.json */; };
 		8A0A6AE61C14EBBB00C24D47 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */; };
 		8A0A6AE81C14ECC900C24D47 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE71C14ECC900C24D47 /* VCMapView.swift */; };
+		8A0A6AEA1C14F60900C24D47 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6AE91C14F60800C24D47 /* JSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8A0A6AE31C14E91200C24D47 /* PublicArt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PublicArt.json; sourceTree = "<group>"; };
 		8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		8A0A6AE71C14ECC900C24D47 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
+		8A0A6AE91C14F60800C24D47 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				8A0A6ABD1C14E09300C24D47 /* LaunchScreen.storyboard */,
 				8A0A6AC01C14E09300C24D47 /* Info.plist */,
 				8A0A6AE51C14EBBB00C24D47 /* Artwork.swift */,
+				8A0A6AE91C14F60800C24D47 /* JSON.swift */,
 				8A0A6AE71C14ECC900C24D47 /* VCMapView.swift */,
 			);
 			path = HonoluluArt;
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A0A6AE81C14ECC900C24D47 /* VCMapView.swift in Sources */,
+				8A0A6AEA1C14F60900C24D47 /* JSON.swift in Sources */,
 				8A0A6AB71C14E09300C24D47 /* ViewController.swift in Sources */,
 				8A0A6AE61C14EBBB00C24D47 /* Artwork.swift in Sources */,
 				8A0A6AB51C14E09300C24D47 /* AppDelegate.swift in Sources */,

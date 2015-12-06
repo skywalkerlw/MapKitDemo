@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius: CLLocationDistance = 1000
+    var artworks = [Artwork]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,5 +39,38 @@ class ViewController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
+    func loadInitialData() {
+        // 1
+        let fileName = NSBundle.mainBundle().pathForResource("PublicArt", ofType: "json");
+        var data : NSData
+        do {
+            data = try NSData(contentsOfFile: fileName!, options: NSDataReadingOptions(rawValue: 0))
+        } catch {
+            // report error
+            print("read data error")
+        }
+        
+
+        // 2
+        do {
+            let jsonObject: AnyObject! = try NSJSONSerialization.JSONObjectWithData(data,
+                    options: NSJSONReadingOptions(rawValue: 0))
+            
+            // 3
+            if let jsonObject = jsonObject as? [String: AnyObject],
+                // 4
+                let jsonData = JSONValue.fromObject(jsonObject)?["data"]?.array {
+                    for artworkJSON in jsonData {
+                        if let artworkJSON = artworkJSON.array,
+                            // 5
+                            artwork = Artwork.fromJSON(artworkJSON) {
+                                artworks.append(artwork)
+                        }
+                    }
+            }
+        } catch {
+            print("json error")
+        }
+    }
 }
 
