@@ -29,6 +29,7 @@ class ViewController: UIViewController {
                 coordinate: CLLocationCoordinate2D(latitude: 21.283921, longitude: -157.831661))
 
         mapView.addAnnotation(artwork)
+        mapView.delegate = self
     }
 
     func centerMapOnLocation(location: CLLocation) {

@@ -5,7 +5,7 @@
 //  Created by Yao Li on 12/6/15.
 //  Copyright © 2015 clouds. All rights reserved.
 //
-
+import Foundation
 import MapKit
 
 class Artwork: NSObject, MKAnnotation {
