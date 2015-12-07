@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius: CLLocationDistance = 1000
     var artworks = [Artwork]()
+    var locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,11 @@ class ViewController: UIViewController {
 //
 //        mapView.addAnnotation(artwork)
         mapView.delegate = self
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        checkLocationAuthorizationStatus()
     }
 
     func centerMapOnLocation(location: CLLocation) {
@@ -73,6 +79,15 @@ class ViewController: UIViewController {
         } catch {
             // report error
             print("read data error")
+        }
+    }
+
+    // MARK: - location manager to authorize user location for Maps app
+    func checkLocationAuthorizationStatus() {
+        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+          mapView.showsUserLocation = true
+        } else {
+          locationManager.requestWhenInUseAuthorization()
         }
     }
 }
