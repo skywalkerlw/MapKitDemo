@@ -12,12 +12,9 @@
 		273B66AA292B5A0500263946 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 273B66A9292B5A0500263946 /* Assets.xcassets */; };
 		273B66AD292B5A0500263946 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 273B66AC292B5A0500263946 /* Preview Assets.xcassets */; };
 		273B66B6292B5A4800263946 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B66B3292B5A4800263946 /* MapViewController.swift */; };
-		273B66B7292B5A4800263946 /* ArtworkViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B66B4292B5A4800263946 /* ArtworkViews.swift */; };
-		273B66B8292B5A4800263946 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B66B5292B5A4800263946 /* Artwork.swift */; };
 		273B66BA292B5B4E00263946 /* MapViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273B66B9292B5B4E00263946 /* MapViewWrapper.swift */; };
-		273B66BC292B5BEB00263946 /* PublicArt.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 273B66BB292B5BEB00263946 /* PublicArt.geojson */; };
 		2752CAEA292B637D00279238 /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752CAE9292B637D00279238 /* ClusterAnnotationView.swift */; };
-		2752CAEC292B732500279238 /* MapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752CAEB292B732500279238 /* MapItem.swift */; };
+		2752CAEC292B732500279238 /* MapItemAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752CAEB292B732500279238 /* MapItemAnnotationView.swift */; };
 		2752CAEE292B759000279238 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752CAED292B759000279238 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,12 +25,9 @@
 		273B66A9292B5A0500263946 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		273B66AC292B5A0500263946 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		273B66B3292B5A4800263946 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		273B66B4292B5A4800263946 /* ArtworkViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkViews.swift; sourceTree = "<group>"; };
-		273B66B5292B5A4800263946 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		273B66B9292B5B4E00263946 /* MapViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewWrapper.swift; sourceTree = "<group>"; };
-		273B66BB292B5BEB00263946 /* PublicArt.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PublicArt.geojson; sourceTree = "<group>"; };
 		2752CAE9292B637D00279238 /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
-		2752CAEB292B732500279238 /* MapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItem.swift; sourceTree = "<group>"; };
+		2752CAEB292B732500279238 /* MapItemAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemAnnotationView.swift; sourceTree = "<group>"; };
 		2752CAED292B759000279238 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,15 +61,12 @@
 		273B66A4292B5A0400263946 /* SwiftUIMapView */ = {
 			isa = PBXGroup;
 			children = (
-				273B66B5292B5A4800263946 /* Artwork.swift */,
-				273B66B4292B5A4800263946 /* ArtworkViews.swift */,
-				2752CAEB292B732500279238 /* MapItem.swift */,
+				2752CAEB292B732500279238 /* MapItemAnnotationView.swift */,
 				2752CAE9292B637D00279238 /* ClusterAnnotationView.swift */,
 				273B66B3292B5A4800263946 /* MapViewController.swift */,
 				2752CAED292B759000279238 /* Helper.swift */,
 				273B66B9292B5B4E00263946 /* MapViewWrapper.swift */,
 				273B66A5292B5A0400263946 /* SwiftUIMapViewApp.swift */,
-				273B66BB292B5BEB00263946 /* PublicArt.geojson */,
 				273B66A7292B5A0400263946 /* ContentView.swift */,
 				273B66A9292B5A0500263946 /* Assets.xcassets */,
 				273B66AB292B5A0500263946 /* Preview Content */,
@@ -151,7 +142,6 @@
 			files = (
 				273B66AD292B5A0500263946 /* Preview Assets.xcassets in Resources */,
 				273B66AA292B5A0500263946 /* Assets.xcassets in Resources */,
-				273B66BC292B5BEB00263946 /* PublicArt.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,13 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				273B66B8292B5A4800263946 /* Artwork.swift in Sources */,
 				273B66A8292B5A0400263946 /* ContentView.swift in Sources */,
-				273B66B7292B5A4800263946 /* ArtworkViews.swift in Sources */,
 				273B66BA292B5B4E00263946 /* MapViewWrapper.swift in Sources */,
 				273B66B6292B5A4800263946 /* MapViewController.swift in Sources */,
 				2752CAEE292B759000279238 /* Helper.swift in Sources */,
-				2752CAEC292B732500279238 /* MapItem.swift in Sources */,
+				2752CAEC292B732500279238 /* MapItemAnnotationView.swift in Sources */,
 				2752CAEA292B637D00279238 /* ClusterAnnotationView.swift in Sources */,
 				273B66A6292B5A0400263946 /* SwiftUIMapViewApp.swift in Sources */,
 			);

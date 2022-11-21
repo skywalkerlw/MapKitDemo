@@ -7,7 +7,6 @@ import MapKit
 
 class MapViewController: UIViewController {
   private let mapView: MKMapView = MKMapView()
-  private var artworks: [Artwork] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -60,16 +59,12 @@ private extension MKMapView {
 }
 
 extension MapViewController: MKMapViewDelegate {
-  func mapView(
-    _ mapView: MKMapView,
-    annotationView view: MKAnnotationView,
-    calloutAccessoryControlTapped control: UIControl
-  ) {
-    guard let artwork = view.annotation as? Artwork else {
-      return
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("calloutAccessoryControlTapped clicked")
     }
     
-    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-    artwork.mapItem?.openInMaps(launchOptions: launchOptions)
-  }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("didSelect")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MKAnnotationViewClicked"), object: nil, userInfo: nil)
+    }
 }

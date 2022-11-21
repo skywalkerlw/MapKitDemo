@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import Contacts
 
 
 final class MapItem: NSObject, MKAnnotation {
@@ -32,10 +33,14 @@ final class MapItem: NSObject, MKAnnotation {
         self.coordinate = coordinate
         self.itemType = ItemType(rawValue: arc4random_uniform(2)) ?? .green
     }
+    
 }
 
 
 final class MapItemAnnotationView: MKAnnotationView {
+    
+    let itemType: MapItem.ItemType = .green
+    
     override var annotation: MKAnnotation? {
         didSet {
             guard let mapItem = annotation as? MapItem else { return }

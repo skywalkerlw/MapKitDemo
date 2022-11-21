@@ -56,7 +56,7 @@ extension UIGraphicsImageRenderer {
 extension Sequence where Element == MKAnnotation {
     var orangeCount: Int {
         let a = self
-            .flatMap { $0 as? ArtworkMarkerView }
+            .flatMap { $0 as? MapItemAnnotationView }
         return a.filter { $0.itemType == .orange }.count
     }
 }
