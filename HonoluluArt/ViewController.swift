@@ -1,94 +1,86 @@
-//
-//  ViewController.swift
-//  HonoluluArt
-//
-//  Created by Yao Li on 12/6/15.
-//  Copyright © 2015 clouds. All rights reserved.
-//
+
 
 import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var mapView: MKMapView!
-    let regionRadius: CLLocationDistance = 1000
-    var artworks = [Artwork]()
-    var locationManager = CLLocationManager()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
-        // set initial location in honolulu
-        let initLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-        centerMapOnLocation(initLocation)
-
-        loadInitialData()
-        mapView.addAnnotations(artworks)
-
-        // show artwork on map
-//        let artwork = Artwork(title: "King David Kalakaua",
-//                locationName: "Waikiki Gateway Park",
-//                discipline: "Sculpture",
-//                coordinate: CLLocationCoordinate2D(latitude: 21.283921, longitude: -157.831661))
-//
-//        mapView.addAnnotation(artwork)
-        mapView.delegate = self
+  @IBOutlet private var mapView: MKMapView!
+  private var artworks: [Artwork] = []
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Set initial location in Honolulu
+    let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
+    mapView.centerToLocation(initialLocation)
+    
+    let oahuCenter = CLLocation(latitude: 21.4765, longitude: -157.9647)
+    let region = MKCoordinateRegion(
+      center: oahuCenter.coordinate,
+      latitudinalMeters: 50000,
+      longitudinalMeters: 60000)
+    mapView.setCameraBoundary(
+      MKMapView.CameraBoundary(coordinateRegion: region),
+      animated: true)
+    
+    let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
+    mapView.setCameraZoomRange(zoomRange, animated: true)
+    
+    mapView.delegate = self
+    
+    mapView.register(
+      ArtworkView.self,
+      forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+    
+    loadInitialData()
+    mapView.addAnnotations(artworks)
+  }
+  
+  private func loadInitialData() {
+    // 1
+    guard
+      let fileName = Bundle.main.url(forResource: "PublicArt", withExtension: "geojson"),
+      let artworkData = try? Data(contentsOf: fileName)
+      else {
+        return
     }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        checkLocationAuthorizationStatus()
+    
+    do {
+      // 2
+      let features = try MKGeoJSONDecoder()
+        .decode(artworkData)
+        .compactMap { $0 as? MKGeoJSONFeature }
+      // 3
+      let validWorks = features.compactMap(Artwork.init)
+      // 4
+      artworks.append(contentsOf: validWorks)
+    } catch {
+      // 5
+      print("Unexpected error: \(error).")
     }
-
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-
-    func loadInitialData() {
-        // 1
-        let fileName = NSBundle.mainBundle().pathForResource("PublicArt", ofType: "json");
-        var data : NSData
-        do {
-            data = try NSData(contentsOfFile: fileName!, options: NSDataReadingOptions(rawValue: 0))
-            
-            
-            // 2
-            do {
-                let jsonObject: AnyObject! = try NSJSONSerialization.JSONObjectWithData(data,
-                    options: NSJSONReadingOptions(rawValue: 0))
-                
-                // 3
-                if let jsonObject = jsonObject as? [String: AnyObject],
-                    // 4
-                    let jsonData = JSONValue.fromObject(jsonObject)?["data"]?.array {
-                        for artworkJSON in jsonData {
-                            if let artworkJSON = artworkJSON.array,
-                                // 5
-                                artwork = Artwork.fromJSON(artworkJSON) {
-                                    artworks.append(artwork)
-                            }
-                        }
-                }
-            } catch {
-                print("json error")
-            }
-        } catch {
-            // report error
-            print("read data error")
-        }
-    }
-
-    // MARK: - location manager to authorize user location for Maps app
-    func checkLocationAuthorizationStatus() {
-        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
-          mapView.showsUserLocation = true
-        } else {
-          locationManager.requestWhenInUseAuthorization()
-        }
-    }
+  }
 }
 
+private extension MKMapView {
+  func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
+}
+
+extension ViewController: MKMapViewDelegate {
+  func mapView(
+    _ mapView: MKMapView,
+    annotationView view: MKAnnotationView,
+    calloutAccessoryControlTapped control: UIControl
+  ) {
+    guard let artwork = view.annotation as? Artwork else {
+      return
+    }
+    
+    let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+    artwork.mapItem?.openInMaps(launchOptions: launchOptions)
+  }
+}

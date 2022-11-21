@@ -1,74 +1,96 @@
-//
-//  Artwork.swift
-//  HonoluluArt
-//
-//  Created by Yao Li on 12/6/15.
-//  Copyright © 2015 clouds. All rights reserved.
-//
+
+
 import Foundation
 import MapKit
 import Contacts
 
 class Artwork: NSObject, MKAnnotation {
-    let title: String?
-    let locationName: String
-    let discipline: String
-    let coordinate: CLLocationCoordinate2D
-
-    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.locationName = locationName
-        self.discipline = discipline
-        self.coordinate = coordinate
-
-        super.init()
+  let title: String?
+  let locationName: String?
+  let discipline: String?
+  let coordinate: CLLocationCoordinate2D
+  
+  init(
+    title: String?,
+    locationName: String?,
+    discipline: String?,
+    coordinate: CLLocationCoordinate2D
+  ) {
+    self.title = title
+    self.locationName = locationName
+    self.discipline = discipline
+    self.coordinate = coordinate
+    
+    super.init()
+  }
+  
+  init?(feature: MKGeoJSONFeature) {
+    // 1
+    guard
+      let point = feature.geometry.first as? MKPointAnnotation,
+      // 2
+      let propertiesData = feature.properties,
+      let json = try? JSONSerialization.jsonObject(with: propertiesData),
+      let properties = json as? [String: Any]
+      else {
+        return nil
     }
-
-    class func fromJSON(json: [JSONValue]) -> Artwork? {
-        // 1
-        var title: String
-        if let titleOrNil = json[16].string {
-            title = titleOrNil
-        } else {
-            title = ""
-        }
-        let locationName = json[12].string
-        let discipline = json[15].string
-
-        // 2
-        let latitude = (json[18].string! as NSString).doubleValue
-        let longitude = (json[19].string! as NSString).doubleValue
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-
-        // 3
-        return Artwork(title: title, locationName: locationName!, discipline: discipline!, coordinate: coordinate)
+    
+    // 3
+    title = properties["title"] as? String
+    locationName = properties["location"] as? String
+    discipline = properties["discipline"] as? String
+    coordinate = point.coordinate
+    super.init()
+  }
+  
+  var subtitle: String? {
+    return locationName
+  }
+  
+  var mapItem: MKMapItem? {
+    guard let location = locationName else {
+      return nil
     }
-
-    var subtitle: String? {
-        return locationName
+    
+    let addressDict = [CNPostalAddressStreetKey: location]
+    let placemark = MKPlacemark(
+      coordinate: coordinate,
+      addressDictionary: addressDict)
+    let mapItem = MKMapItem(placemark: placemark)
+    mapItem.name = title
+    return mapItem
+  }
+  
+  var markerTintColor: UIColor  {
+    switch discipline {
+    case "Monument":
+      return .red
+    case "Mural":
+      return .cyan
+    case "Plaque":
+      return .blue
+    case "Sculpture":
+      return .purple
+    default:
+      return .green
     }
-
-    // annotation callout info button opens this mapItem in Maps app
-    func mapItem() -> MKMapItem {
-        let addressDictionary = [String(CNPostalAddressStreetKey): self.subtitle!]
-        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
-
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = title
-
-        return mapItem
+  }
+  
+  var image: UIImage {
+    guard let name = discipline else { return #imageLiteral(resourceName: "Flag") }
+    
+    switch name {
+    case "Monument":
+      return #imageLiteral(resourceName: "Monument")
+    case "Sculpture":
+      return #imageLiteral(resourceName: "Sculpture")
+    case "Plaque":
+      return #imageLiteral(resourceName: "Plaque")
+    case "Mural":
+      return #imageLiteral(resourceName: "Mural")
+    default:
+      return #imageLiteral(resourceName: "Flag")
     }
-
-    // pinColor for disciplines: Sculpture, Plaque, Mural, Monument, other
-    func pinColor() -> MKPinAnnotationColor  {
-        switch discipline {
-        case "Sculpture", "Plaque":
-            return .Red
-        case "Mural", "Monument":
-            return .Purple
-        default:
-            return .Green
-        }
-    }
+  }
 }
-
