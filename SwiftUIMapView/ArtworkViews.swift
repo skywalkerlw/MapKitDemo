@@ -4,6 +4,15 @@ import Foundation
 import MapKit
 
 class ArtworkMarkerView: MKMarkerAnnotationView {
+    
+    // Placeholder for use in future
+    enum ItemType: UInt32 {
+            case green = 0
+            case orange = 1
+        }
+    
+    let itemType: ItemType = .green
+    
   override var annotation: MKAnnotation? {
     willSet {
       // 1

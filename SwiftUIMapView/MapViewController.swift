@@ -3,6 +3,8 @@
 import UIKit
 import MapKit
 
+// https://medium.com/@worthbak/clustering-with-mapkit-on-ios-11-part-2-2418a865543b
+
 class MapViewController: UIViewController {
   private let mapView: MKMapView = MKMapView()
   private var artworks: [Artwork] = []
@@ -13,15 +15,14 @@ class MapViewController: UIViewController {
     self.mapView.frame = self.view.bounds
     self.view.addSubview(self.mapView)
     
-    // Set initial location in Honolulu
-    let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-    mapView.centerToLocation(initialLocation)
-    
-    let oahuCenter = CLLocation(latitude: 21.4765, longitude: -157.9647)
-    let region = MKCoordinateRegion(
-      center: oahuCenter.coordinate,
-      latitudinalMeters: 50000,
-      longitudinalMeters: 60000)
+  let centerCoordinate = CLLocationCoordinate2D(latitude: -32.256943, longitude: 148.601105)
+      let region = MKCoordinateRegion(
+            center: centerCoordinate,
+            latitudinalMeters: 50000,
+            longitudinalMeters: 60000)
+  mapView.setRegion(region, animated: true)
+  
+  
     mapView.setCameraBoundary(
       MKMapView.CameraBoundary(coordinateRegion: region),
       animated: true)
@@ -32,35 +33,19 @@ class MapViewController: UIViewController {
     mapView.delegate = self
     
     mapView.register(
-      ArtworkView.self,
+//      ArtworkView.self,
+        MapItemAnnotationView.self,
       forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+      
+      mapView.register(
+          ClusterAnnotationView.self,
+          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+
     
-    loadInitialData()
-    mapView.addAnnotations(artworks)
-  }
-  
-  private func loadInitialData() {
-    // 1
-    guard
-      let fileName = Bundle.main.url(forResource: "PublicArt", withExtension: "geojson"),
-      let artworkData = try? Data(contentsOf: fileName)
-      else {
-        return
-    }
-    
-    do {
-      // 2
-      let features = try MKGeoJSONDecoder()
-        .decode(artworkData)
-        .compactMap { $0 as? MKGeoJSONFeature }
-      // 3
-      let validWorks = features.compactMap(Artwork.init)
-      // 4
-      artworks.append(contentsOf: validWorks)
-    } catch {
-      // 5
-      print("Unexpected error: \(error).")
-    }
+      for randCoordinate in makeRandomCoordinates(in: region) {
+          let annotation = MapItem(coordinate: randCoordinate)
+          mapView.addAnnotation(annotation)
+      }
   }
 }
 
